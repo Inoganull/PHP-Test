@@ -13,6 +13,11 @@ CREATE TABLE `courses` (
     `name` VARCHAR(200) NOT NULL
 );
 
+CREATE TABLE `course_student` (
+    `student_id` INT UNSIGNED NOT NULL,
+    `course_id` INT UNSIGNED NOT NULL
+);
+
 
 
 --create--
@@ -26,7 +31,21 @@ VALUES
 
 INSERT INTO `courses` (`name`) 
 VALUES
-("PHP"), ("Javascript"), ("Python");
+("PHP"), ("Javascript"), ("Python"), ("C++");
+
+INSERT INTO `course_student` (`student_id`, `course_id`)
+VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(2, 4),
+(3, 1),
+(3, 2),
+(4, 3),
+(4, 2),
+(5, 1),
+(5, 2);
+
 
 --read--
 SELECT `id`, `name`, `email`, `gender`, `dob`, `age` from `students`;
@@ -51,3 +70,13 @@ grant create on university.* to 'professor'@'localhost';
 
 --join table--
 SELECT * FROM  `students` INNER JOIN `courses` ON students.course_id = courses.id;
+
+--many to many relationship--
+SELECT 
+    students.name, students.email, students.gender, courses.name as course
+FROM `students`
+    JOIN `course_student` ON students.id = course_student.student_id
+    JOIN `courses` ON courses.id = course_student.course_id
+    -- ORDER BY students.name ASC
+    WHERE courses.name = "PHP";
+

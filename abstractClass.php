@@ -31,7 +31,7 @@
         }
     }
 
-    $human = new Teacher('Maki', '23');
+    $human = new Teacher('Maki', '27');
     echo $human->printInfo();
 
 ?>
